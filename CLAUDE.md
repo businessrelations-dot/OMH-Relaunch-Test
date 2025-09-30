@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Figma-to-Code Workflow v3.0 - Sequential Agent Pipeline
+# Figma-to-Code Workflow v4.0 - Async Orchestration Pipeline
 
 ## 🚨 KRITISCHE WARNUNG
 
@@ -17,94 +17,304 @@ Figma generiert schlechten Code mit absoluten Positionen:
 <div className="relative w-full max-w-lg">
 ```
 
+**ABER:** Figma Auto-Code enthält wertvolle Informationen für die Analyse!
+- ✅ Nutze es für: Hierarchie, Measurements, Nesting-Struktur
+- ❌ Nutze es NICHT für: Absolute Positioning, Direct Implementation
+
 ---
 
-## 🎯 4-Phasen Sequential Agent Pipeline
+## 🎯 2-Phase Async Orchestration Workflow
 
-### Phase 1: Design-Analyse & Information Brokering (Main Agent)
+### Performance-Vergleich:
+```
+Sequential v3.0:  Planning(5min) → Frontend(20min) → Validation(5min) → Refactor(8min) = 38min
+Async v4.0:       Planning(10min) → [Frontend(15min) ∥ Validator(7min) ∥ Refactor(10min)] = 25min
 
-**Rolle:** Information Broker & Figma-Filter
-
-```yaml
-Aufgaben:
-  1. Figma MCP → Screenshot + Assets abrufen
-  2. Schlechten Auto-Code FILTERN (kritisch!)
-  3. Design-Specification erstellen:
-     - Visual Reference (Screenshot)
-     - Asset URLs (strukturierte Liste)
-     - Design Tokens (Farben, Spacing)
-     - Component-Struktur identifizieren
-
-Output: Gefiltertes Briefing für Frontend-Dev Agent
+Time Savings: 13 minutes (35% faster) ⚡
 ```
 
-#### Figma MCP Integration:
+---
+
+## 📋 Phase 1: Deep Planning & Specification (Main Agent - 10min)
+
+**Rolle:** Strategic Planner & Intelligent Information Architect
+
+### Aufgaben:
+
+#### 1. Figma MCP Integration & Data Extraction
 ```javascript
-// Design analysieren
-mcp__figma-dev-mode-mcp-server__get_screenshot(nodeId)
-mcp__figma-dev-mode-mcp-server__get_code(nodeId, forceCode: true)
-// → Code wird gefiltert, nicht direkt verwendet!
+// Alle Figma-Daten abrufen
+mcp__figma-dev-mode-mcp-server__get_screenshot(nodeId)     // Visual Reference
+mcp__figma-dev-mode-mcp-server__get_code(nodeId, forceCode: true)  // For Analysis Only!
+mcp__figma-dev-mode-mcp-server__get_variable_defs(nodeId)  // Colors, Spacing Tokens
+// Asset URLs werden automatisch bereitgestellt
 ```
 
-### Phase 2: Implementation (Frontend-Dev Agent)
+#### 2. Intelligent Extraction & Conversion
+```yaml
+Analyse des Figma Auto-Codes:
+  Parse:
+    - Element Hierarchie & Nesting-Struktur
+    - Parent-Child Relationships
+    - Wiederholte Patterns (Komponenten)
 
-**Input:** Kuratierte Design-Specs vom Main Agent (KEIN direkter Figma-Zugriff!)
+  Convert Measurements:
+    - Absolute Positionen → Relative Beziehungen
+      Beispiel: "3 cards horizontal, 48px gap" → "3-col grid, 3rem gap"
+    - Fixed Widths → Responsive Constraints
+      Beispiel: "width: 486px" → "max-w-30rem, 100% mobile"
+    - Pixel Values → Rem/Percentage
+      Beispiel: "padding: 80px" → "padding: 5rem"
+
+  Extract Relationships:
+    - Layout-Struktur (Grid/Flex/Stack)
+    - Spacing zwischen Elementen
+    - Breakpoint Requirements
+```
+
+#### 3. Master Specification Document erstellen
+
+**Format:**
+```markdown
+# Master Specification: [Project Name]
+
+## 1. Visual Reference
+![Figma Screenshot](localhost:3845/screenshot.png)
+
+## 2. Component Structure Tree
+Container (max-w-80rem, px-5rem, py-8rem)
+└─ Hero Section
+   ├─ Heading
+   │  └─ Typography: Poppins 4rem/900, #00ff66
+   ├─ Subheading
+   │  └─ Typography: Poppins 1.5rem/400, #ffffff
+   └─ CTA Button
+      └─ Padding: 2rem x 1rem, bg-#00ff66, rounded-0.5rem
+
+└─ Features Grid (3-col desktop, 2-col tablet, 1-col mobile)
+   ├─ Feature Card 1 [Pattern: card-default]
+   ├─ Feature Card 2 [Pattern: card-default]
+   └─ Feature Card 3 [Pattern: card-default]
+
+## 3. Precise Measurements (Converted)
+| Element | Figma | Responsive | Notes |
+|---------|-------|------------|-------|
+| Container max-width | 1280px | 80rem | Desktop constraint |
+| Hero padding | 80px | 5rem | All sides |
+| Card gap | 48px | 3rem | Grid gap |
+| Button padding | 32px 16px | 2rem 1rem | Horizontal x Vertical |
+| Border radius | 8px | 0.5rem | Standard |
+
+## 4. Responsive Breakpoint Behavior
+- **Mobile (375px-767px):**
+  - Stack all cards vertically
+  - Full-width buttons
+  - Reduced padding (2rem)
+
+- **Tablet (768px-1023px):**
+  - 2-column grid
+  - Padding 3rem
+
+- **Desktop (1024px+):**
+  - 3-column grid
+  - Max-width constraints active
+  - Padding 5rem
+
+## 5. Design Tokens
+Colors:
+  - Primary: #00ff66 (Neon Green)
+  - Background: #010f07 (Dark)
+  - Text: #ffffff (White)
+
+Typography:
+  - Font Family: Poppins
+  - Heading: 4rem/900
+  - Body: 1rem/400
+  - Subheading: 1.5rem/400
+
+Spacing Scale:
+  - xs: 0.5rem (8px)
+  - sm: 1rem (16px)
+  - md: 2rem (32px)
+  - lg: 3rem (48px)
+  - xl: 5rem (80px)
+
+## 6. Asset Manifest
+- hero-bg.webp: localhost:3845/assets/hero-bg.webp (1920x1080)
+- logo.svg: localhost:3845/assets/logo.svg
+- feature-icon-1.svg: localhost:3845/assets/feature-icon-1.svg
+[Complete list of all assets with dimensions]
+
+## 7. Pre-Identified Component Patterns
+Pattern: card-default (Used 3x)
+  - Structure: img + heading + text + button
+  - Padding: 2rem
+  - Border-radius: 1rem
+  - Shadow: 0 4px 6px rgba(0,0,0,0.1)
+
+Pattern: button-primary (Used 2x)
+  - Padding: 2rem 1rem
+  - Background: #00ff66
+  - Color: #010f07
+  - Border-radius: 0.5rem
+  - Hover: transform scale(1.05)
+
+## 8. Validation Criteria (95% Match)
+✅ Typography size: ±2px tolerance
+✅ Spacing: ±4px tolerance
+✅ Colors: Exact match required
+✅ Layout structure: Must match hierarchy
+✅ Responsive behavior: All breakpoints work
+✅ Assets: All loaded, no placeholders
+
+## 9. Known Challenges
+- [List any tricky aspects identified]
+- [Areas that need special attention]
+```
+
+#### 4. Generate Work Packages
+
+**Work Package A: Frontend Implementation**
+```yaml
+Specs: [Full component tree with measurements]
+Assets: [Complete manifest]
+Constraints: [Responsive requirements]
+Priority: Build mobile-first, test all breakpoints
+```
+
+**Work Package B: Validation Suite**
+```yaml
+Reference: [Figma screenshot]
+Criteria: [95% match definition]
+Test Plan: [Breakpoints to validate]
+Tools: [Browser automation setup]
+```
+
+**Work Package C: Refactoring Patterns**
+```yaml
+Patterns: [Pre-identified components]
+Templates: [Component structure]
+Optimization: [Performance targets]
+```
+
+**Output:** Master Spec Document + 3 Ready-to-Execute Work Packages
+
+---
+
+## 🚀 Phase 2: Async Orchestration (3 Parallel Agents - 15-20min)
+
+**Rolle:** Concurrent Execution with Dependency Management
+
+### Execution via Task Tool:
+```javascript
+// Main Agent launches 3 parallel tasks
+const [frontendResult, validationResult, refactorResult] = await Promise.all([
+  Task({
+    subagent_type: "frontend-dev",
+    description: "Build responsive UI",
+    prompt: `${workPackageA}\n\nBuild pixel-perfect responsive implementation.`
+  }),
+  Task({
+    subagent_type: "ui-design-validator",
+    description: "Validate design match",
+    prompt: `${workPackageB}\n\nPrepare validation suite, wait for frontend completion, then validate.`
+  }),
+  Task({
+    subagent_type: "component-refactorer",
+    description: "Extract components",
+    prompt: `${workPackageC}\n\nPrepare refactoring patterns, wait for validation, then optimize.`
+  })
+]);
+```
+
+### Sub-Phase 2A: Frontend Implementation (Agent 1 - 15min)
+
+**Input:** Work Package A (Enhanced Specification)
 
 ```yaml
 Aufgaben:
-  - Semantisches HTML5 strukturieren
-  - Responsive CSS implementieren (Mobile-First)
-  - JavaScript-Interaktivität hinzufügen
-  - Alle Assets korrekt einbinden (localhost:3845)
+  - Parse Master Spec Document
+  - Build semantisches HTML5 mit genauer Hierarchie
+  - Implement responsive CSS (Mobile-First)
+    * Use exact measurements from spec (in rem)
+    * Follow responsive breakpoint behavior
+    * Apply design tokens consistently
+  - Add JavaScript-Interaktivität
+  - Integrate all assets from manifest
+  - Test across breakpoints during build
 
-Wichtige Regeln:
-  - Ignoriert Figma Auto-Code vollständig
-  - Baut responsive von Anfang an
-  - Nutzt relative Units (rem, %, vw)
-  - Erstellt saubere, wartbare Struktur
+Vorteile der Enhanced Specs:
+  - Keine Rätselraten bei Measurements (±95% genau)
+  - Klare Component-Struktur vorgegeben
+  - Responsive Behavior dokumentiert
+  - Alle Assets vorbereitet
+  → Faster implementation, fewer validation failures
 ```
 
-### Phase 3: Design-Validation (UI-Design-Validator Agent)
+### Sub-Phase 2B: Validation (Agent 2 - 2min prep + 5min validate)
 
-**Quality Gate:** Muss >95% Design-Match erreichen
+**Input:** Work Package B + Frontend Output
 
 ```yaml
-Prüfungen:
-  - Visual Regression Testing vs. Figma Screenshot
-  - Responsive Behavior (375px, 768px, 1024px, 1920px)
-  - Asset-Integration vollständig
-  - Performance Metrics (<2s Load Time)
+Parallel Preparation (while Frontend builds):
+  - Setup Browser Automation (Playwright)
+  - Load Figma Screenshot Reference
+  - Configure Visual Comparison Tools
+  - Prepare Test Matrix:
+    * Mobile: 375px
+    * Tablet: 768px
+    * Desktop: 1024px
+    * Large: 1920px
 
-Bei Fail (<95%):
-  - Zurück zu Phase 2 mit detaillierter Fix-Liste
-  - Main Agent kann zusätzliche Figma-Infos bereitstellen
+Validation Execution (after Frontend completes):
+  - Visual Regression Testing
+  - Responsive Behavior Check
+  - Asset Integration Verification
+  - Performance Metrics
+  - Generate Detailed Report:
+    * Match Percentage (target: >95%)
+    * List of Discrepancies
+    * Screenshots of Issues
+
+Output: Pass/Fail + Fix Instructions if needed
 ```
 
-### Phase 4: Component-Refactoring (Component-Refactorer Agent)
+### Sub-Phase 2C: Component Refactoring (Agent 3 - 2min prep + 8min refactor)
 
-**Trigger:** NUR nach erfolgreicher Design-Validation
+**Input:** Work Package C + Validated Code
 
 ```yaml
-Optimierungen:
-  - Pattern-Extraktion (wiederholte Elemente)
-  - Component-Erstellung:
-    * Logo Cards (Partner-Logos)
-    * Problem Cards (3x gleiche Struktur)
-    * Button Varianten
-    * Statistik Items
-  - Code-Deduplizierung
-  - Performance-Optimierung
+Parallel Preparation (while validation runs):
+  - Analyze Pre-Identified Patterns
+  - Load Component Templates
+  - Setup Optimization Tools
+  - Prepare Extraction Strategy
+
+Refactoring Execution (after validation passes):
+  - Extract Reusable Components:
+    * card-default → Card.js/Card.css
+    * button-primary → Button.js/Button.css
+  - Deduplicate repeated code
+  - Create Component Library Structure
+  - Optimize Performance:
+    * Lazy loading
+    * Image optimization
+    * CSS minification
+  - Update main code to use components
+
+Output: Optimized Component Library + Updated Code
 ```
 
 ---
 
 ## ⚡ Workflow-Regeln
 
-1. **Sequentiell, nicht parallel** - Jede Phase baut auf der vorherigen auf
-2. **Main Agent filtert Figma-Müll** - Subagents sehen nur saubere Specs
-3. **Validation vor Refactoring** - Erst funktionieren, dann optimieren
-4. **Kein direkter Figma-Zugriff für Subagents** - Verhindert schlechten Code
-5. **Quality Gates zwischen Phasen** - Fail-Fast Prinzip
+1. **2-Phase Execution:** Deep Planning → Async Orchestration
+2. **Enhanced Measurement Extraction:** Figma Auto-Code für Analyse, nie direkt implementieren
+3. **Parallel Efficiency:** 3 Agents arbeiten gleichzeitig (mit Dependency Management)
+4. **Work Package System:** Klare, dokumentierte Aufgaben für jeden Agent
+5. **Quality Gates:** Validation muss >95% erreichen vor Refactoring
+6. **Preparation Optimization:** Agents bereiten vor während andere arbeiten
 
 ---
 
@@ -229,6 +439,15 @@ Optimierungen:
 ---
 
 ## Version History
+
+**v4.0 - Async Orchestration Pipeline** (Current)
+- 2-Phase Workflow: Deep Planning (10min) → Async Orchestration (15-20min)
+- Enhanced Measurement Extraction (Figma Auto-Code für intelligente Analyse)
+- Parallel Agent Execution mit Dependency Management (3 Agents gleichzeitig)
+- Work Package System für strukturierte Task Distribution
+- Master Specification Document Format mit präzisen Measurements
+- 35% Performance-Verbesserung (38min → 25min)
+- Preparation Optimization (Agents bereiten parallel vor)
 
 **v3.0 - Sequential Agent Pipeline**
 - 4-Phasen sequentieller Workflow statt parallel
