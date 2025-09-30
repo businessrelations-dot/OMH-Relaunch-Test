@@ -1,0 +1,130 @@
+{
+  "validation_checklist": {
+    "typography": {
+      "tolerance": "±2px",
+      "items": [
+        {"element": "H1 Title", "expected": "58px", "range": "56-60px", "font": "Poppins Regular"},
+        {"element": "H2 Subtitle", "expected": "22px", "range": "20-24px", "font": "Poppins Regular"},
+        {"element": "Body Text", "expected": "18px", "range": "16-20px", "font": "Poppins Regular"},
+        {"element": "Stats Numbers", "expected": "24px", "range": "22-26px", "font": "Poppins SemiBold"},
+        {"element": "Card Titles", "expected": "24px", "range": "22-26px", "font": "Poppins Medium"},
+        {"element": "Nav Items", "expected": "18px", "range": "16-20px", "font": "Poppins Regular"}
+      ],
+      "weights_required": [400, 500, 600, 900]
+    },
+    "spacing": {
+      "tolerance": "±4px",
+      "items": [
+        {"element": "Section Padding Desktop", "expected": "240px", "range": "236-244px"},
+        {"element": "Hero Gap", "expected": "70px", "range": "66-74px"},
+        {"element": "Logo Card Gap", "expected": "8px", "range": "4-12px"},
+        {"element": "Logo Row Gap", "expected": "131px", "range": "127-135px"},
+        {"element": "Problem Card Offset", "expected": "20px", "range": "16-24px"}
+      ]
+    },
+    "colors": {
+      "tolerance": "exact",
+      "items": [
+        {"name": "Neon Green", "expected": "#00ff66", "usage": "Primary accent, headings"},
+        {"name": "Dark Background", "expected": "#010f07", "usage": "Page background"},
+        {"name": "White", "expected": "#ffffff", "usage": "Primary text"},
+        {"name": "Text Gray", "expected": "#d9d9d9", "usage": "Subtitle text"},
+        {"name": "Text Subtle", "expected": "#b9bab9", "usage": "Stats descriptions"},
+        {"name": "Border Green", "expected": "rgba(0, 255, 102, 0.5)", "usage": "Secondary button border"}
+      ]
+    },
+    "layout": {
+      "items": [
+        {"element": "Menu", "expected": "Sticky header with backdrop-blur-25px"},
+        {"element": "Hero Layout", "expected": "2-column: text left (685px), images right"},
+        {"element": "Logo Carousel", "expected": "2 rows, opposite scroll directions (left→, ←right)"},
+        {"element": "Problems Section", "expected": "2-column: title left (474px), cards right (896px) staggered"},
+        {"element": "Social Proof Avatars", "expected": "10 circles with -15px overlap"}
+      ]
+    },
+    "assets": {
+      "total_count": 43,
+      "categories": {
+        "hero_images": 4,
+        "avatars": 10,
+        "partner_logos": 15,
+        "icons_backgrounds": 14
+      },
+      "requirements": [
+        "All assets loaded from localhost:3845",
+        "No placeholder images",
+        "No 404 errors",
+        "SVG icons render properly"
+      ]
+    },
+    "responsive": {
+      "breakpoints": [
+        {
+          "name": "Mobile",
+          "width": 375,
+          "requirements": [
+            "Single column layout",
+            "Hero text and images stacked vertically",
+            "Stats stacked vertically, no separators",
+            "Buttons full width, stacked",
+            "Logo cards scaled to 12rem",
+            "Problem cards no horizontal offset"
+          ]
+        },
+        {
+          "name": "Tablet",
+          "width": 768,
+          "requirements": [
+            "Full navigation visible",
+            "Hero maintains 2-column with reduced gaps",
+            "Section padding 3rem horizontal",
+            "Logo cards scaled to 14rem",
+            "Problem cards maintain stagger"
+          ]
+        },
+        {
+          "name": "Desktop",
+          "width": 1024,
+          "requirements": [
+            "All elements proportionally scaled",
+            "Container max-width 100vw",
+            "All layout patterns maintained"
+          ]
+        },
+        {
+          "name": "Large Desktop",
+          "width": 1920,
+          "requirements": [
+            "Container max-width 1920px centered",
+            "Full padding and spacing",
+            "Horizontal constraints maintained"
+          ]
+        }
+      ]
+    },
+    "animations": {
+      "items": [
+        {"element": "Logo Carousel Row 1", "expected": "Scroll left animation, 60s linear infinite"},
+        {"element": "Logo Carousel Row 2", "expected": "Scroll right animation, 60s linear infinite"},
+        {"element": "Background Glow", "expected": "Pulse animation, 4s ease infinite"},
+        {"element": "Primary Button Hover", "expected": "Scale(1.05) on hover"},
+        {"element": "Secondary Button Hover", "expected": "Background opacity change on hover"},
+        {"element": "Logo Cards Hover", "expected": "Backdrop blur increase on hover"},
+        {"element": "Images Hover", "expected": "Scale(1.02) on hover"}
+      ],
+      "performance": "60fps constant, no jank"
+    }
+  },
+  "scoring": {
+    "passing_threshold": 95,
+    "category_weights": {
+      "typography": 15,
+      "spacing": 15,
+      "colors": 15,
+      "layout": 20,
+      "assets": 15,
+      "responsive": 15,
+      "animations": 5
+    }
+  }
+}

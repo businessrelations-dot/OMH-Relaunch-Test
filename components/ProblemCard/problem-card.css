@@ -1,0 +1,124 @@
+/* ProblemCard Component Styles */
+/* Pattern: Problem statement cards with icon + text */
+
+.problem-card {
+  padding: 1.875rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  gap: 0.9375rem;
+  align-items: flex-start;
+  transition: background 0.3s ease, transform 0.3s ease;
+  border: 1px solid transparent;
+}
+
+/* Icon Container */
+.problem-card__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  background: rgba(0, 255, 102, 0.1);
+  border-radius: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.problem-card__icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Content Area */
+.problem-card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+/* Title */
+.problem-card__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--color-white, #ffffff);
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Description */
+.problem-card__description {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color-text-gray, #d9d9d9);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Hover Effects */
+.problem-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(0, 255, 102, 0.2);
+  transform: translateY(-2px);
+}
+
+.problem-card:hover .problem-card__icon {
+  background: rgba(0, 255, 102, 0.15);
+}
+
+/* Responsive Breakpoints */
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .problem-card {
+    padding: 1.5rem;
+  }
+
+  .problem-card__title {
+    font-size: 1.25rem;
+  }
+
+  .problem-card__description {
+    font-size: 1rem;
+  }
+
+  .problem-card__icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+  }
+}
+
+/* Mobile (375px - 767px) */
+@media (max-width: 767px) {
+  .problem-card {
+    padding: 1rem;
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+
+  .problem-card__title {
+    font-size: 1.125rem;
+  }
+
+  .problem-card__description {
+    font-size: 1rem;
+  }
+
+  .problem-card__icon {
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    min-height: 2rem;
+  }
+
+  .problem-card__icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}

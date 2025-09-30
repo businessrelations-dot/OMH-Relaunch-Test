@@ -1,0 +1,99 @@
+/* CTA Button Component Styles */
+/* Patterns: Primary (filled) and Secondary (outlined) */
+
+/* Base styles for both button types */
+.cta-primary,
+.cta-secondary {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1.0625rem 2.8125rem;
+  border-radius: 0.625rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  min-height: 3.75rem;
+}
+
+/* Primary Button (Neon Green filled) */
+.cta-primary {
+  background: var(--color-neon-green, #00ff66);
+  color: var(--color-bg-dark, #010f07);
+}
+
+.cta-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
+}
+
+.cta-primary:active {
+  transform: scale(0.98);
+}
+
+/* Secondary Button (Outlined) */
+.cta-secondary {
+  background: transparent;
+  border: 1px solid rgba(0, 255, 102, 0.5);
+  color: var(--color-white, #ffffff);
+}
+
+.cta-secondary:hover {
+  background: rgba(0, 255, 102, 0.1);
+  border-color: var(--color-neon-green, #00ff66);
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+}
+
+.cta-secondary:active {
+  transform: scale(0.98);
+  background: rgba(0, 255, 102, 0.15);
+}
+
+/* Responsive Breakpoints */
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cta-primary,
+  .cta-secondary {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    min-height: 3.5rem;
+  }
+}
+
+/* Mobile (375px - 767px) */
+@media (max-width: 767px) {
+  .cta-primary,
+  .cta-secondary {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    min-height: 3rem;
+  }
+}
+
+/* Focus states for accessibility */
+.cta-primary:focus,
+.cta-secondary:focus {
+  outline: 2px solid var(--color-neon-green, #00ff66);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.cta-primary:disabled,
+.cta-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cta-primary:disabled:hover,
+.cta-secondary:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}

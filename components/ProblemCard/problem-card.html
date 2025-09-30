@@ -1,0 +1,20 @@
+<!-- ProblemCard Component Template -->
+<!-- Usage: 3x in Problems Section -->
+<!-- Props: title, description, iconSvg (optional, defaults to X icon) -->
+
+<div class="problem-card" data-component="problem-card">
+  <div class="problem-card__icon">
+    {{#if iconSvg}}
+      {{{iconSvg}}}
+    {{else}}
+      <!-- Default X Icon (from Figma: img23) -->
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M25 15L15 25M15 15L25 25" stroke="#00ff66" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    {{/if}}
+  </div>
+  <div class="problem-card__content">
+    <h3 class="problem-card__title">{{title}}</h3>
+    <p class="problem-card__description">{{description}}</p>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<!-- HeroImage Component Template -->
+<!-- Usage: 4x in hero section image grid -->
+<!-- Props: imageUrl, alt, aspectRatio, hasOverlay (boolean), videoThumbnail (boolean) -->
+
+<div class="hero-image" data-component="hero-image" {{#if aspectRatio}}style="aspect-ratio: {{aspectRatio}}"{{/if}}>
+  <img src="{{imageUrl}}" alt="{{alt}}" class="hero-image__img" loading="lazy">
+
+  {{#if hasOverlay}}
+    <div class="hero-image__overlay"></div>
+  {{/if}}
+
+  {{#if videoThumbnail}}
+    <button class="hero-image__play-button" aria-label="Play video">
+      <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="25" cy="25" r="25" fill="rgba(0, 255, 102, 0.9)"/>
+        <path d="M20 15L35 25L20 35V15Z" fill="#010f07"/>
+      </svg>
+    </button>
+  {{/if}}
+</div>

@@ -1,0 +1,155 @@
+/* HeroImage Component Styles */
+/* Pattern: Image container with optional overlay and video play button */
+
+.hero-image {
+  position: relative;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+/* Image Element */
+.hero-image__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Dark Overlay (for specific images) */
+.hero-image__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Video Play Button */
+.hero-image__play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3.125rem;
+  height: 3.125rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 2;
+  padding: 0;
+}
+
+.hero-image__play-button svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+/* Hover Effects */
+.hero-image:hover {
+  transform: scale(1.02);
+}
+
+.hero-image:hover .hero-image__img {
+  transform: scale(1.05);
+}
+
+.hero-image:hover .hero-image__overlay {
+  opacity: 0.8;
+}
+
+.hero-image:hover .hero-image__play-button {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Responsive Breakpoints */
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-image {
+    border-radius: 1rem;
+  }
+
+  .hero-image__play-button {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* Mobile (375px - 767px) */
+@media (max-width: 767px) {
+  .hero-image {
+    border-radius: 0.75rem;
+    aspect-ratio: 1 / 1; /* Force square on mobile */
+  }
+
+  .hero-image__play-button {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* Reduce hover effects on mobile */
+  .hero-image:hover {
+    transform: none;
+  }
+
+  .hero-image:hover .hero-image__img {
+    transform: none;
+  }
+}
+
+/* Specific aspect ratios for image grid */
+.hero-image--portrait {
+  aspect-ratio: 338 / 331;
+}
+
+.hero-image--landscape {
+  aspect-ratio: 337 / 187;
+}
+
+/* Performance optimization */
+.hero-image__img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Loading state (optional skeleton) */
+.hero-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  animation: pulse 1.5s ease-in-out infinite;
+  z-index: 0;
+}
+
+.hero-image__img[loading="lazy"] {
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Hide skeleton once image loads */
+.hero-image__img.loaded ~ ::before,
+.hero-image__img:not([loading="lazy"])::before {
+  display: none;
+}

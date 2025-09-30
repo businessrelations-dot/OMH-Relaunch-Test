@@ -315,6 +315,10 @@ Output: Optimized Component Library + Updated Code
 4. **Work Package System:** Klare, dokumentierte Aufgaben für jeden Agent
 5. **Quality Gates:** Validation muss >95% erreichen vor Refactoring
 6. **Preparation Optimization:** Agents bereiten vor während andere arbeiten
+7. **🔗 Preview Link Rule:** Nach jedem Build-Process IMMER einen funktionsfähigen Link zum Ergebnis bereitstellen:
+   - Für lokale Dateien: `file:///C:/Users/PC/Projects/TestSite/index.html`
+   - Für HTTP-Server: `http://localhost:PORT/`
+   - Format: "✅ **Vorschau:** [Hier klicken um Ergebnis anzusehen](link)"
 
 ---
 
@@ -471,3 +475,4 @@ Do what has been asked; nothing more, nothing less.
 NEVER create files unless they're absolutely necessary for achieving your goal.
 ALWAYS prefer editing an existing file to creating a new one.
 NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+- erfinde nie etwas dazu. du bist dazu da designs so umzusetzen wie sie dir vorgegeben werden.
