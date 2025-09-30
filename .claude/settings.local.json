@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/PC/**)",
+      "Bash(npm run build:*)",
+      "Bash(claude mcp add:*)",
+      "mcp__figma-dev-mode-mcp-server__get_screenshot",
+      "mcp__figma-dev-mode-mcp-server__get_code",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_take_screenshot",
+      "Bash(node:*)",
+      "Bash(chmod:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(npx http-server:*)",
+      "mcp__playwright__browser_resize",
+      "mcp__playwright__browser_hover",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_network_requests",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git lfs track:*)",
+      "Bash(git reset:*)",
+      "Bash(git stash:*)",
+      "Bash(git lfs:*)",
+      "Bash(git filter-repo:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
